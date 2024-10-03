@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill test JSON</title>
+</head>
+<body>
+  <p>
+    <a href="スキルテスト: JSON">
+      https://developer.mozilla.org/ja/docs/Learn/JavaScript/Objects/Test_your_skills:_JSON
+    </a>
+  </p>
+  <section class="preview">
+    <p></p>
+  </section>
+  <script>
+    const section = document.querySelector('section');
+
+    let para1 = document.createElement('p');
+    let para2 = document.createElement('p');
+    let motherInfo = 'The mother cats are called ';
+    let kittenInfo;
+    const requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/tasks/json/sample.json';
+
+    fetch(requestURL)
+      .then(response => response.text())
+      .then(text => displayCatInfo(text))
+
+    function displayCatInfo(catString) {
+      let total = 0;
+      let male = 0;
+
+      // Add your code here
+
+      //JSON データを JavaScript 配列に変換
+      const data = JSON.parse( catString );
+
+      for ( let i = 0; i < data.length; i++ ) {
+        if ( i !== data.length - 1 ) motherInfo += data[i].name + ', ';
+        motherInfo += data[i].name;
+        for ( let j = 0; j < data[i].kittens.length; j++ ) {
+          if ( data[i].kittens[j].gender === "m" ) {
+            male++;
+          }
+          total++;
+        }
+      }
+
+      let female = total - male;
+      kittenInfo = "Total kittens: " + total + ", male kittens: " + male + ", female kittens: " + female;
+
+    // Don't edit the code below here!
+      para1.textContent = motherInfo;
+      para2.textContent = kittenInfo;
+    }
+
+    section.appendChild(para1);
+    section.appendChild(para2);
+  </script>
+</body>
+</html>
